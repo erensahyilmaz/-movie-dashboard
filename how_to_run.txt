@@ -1,0 +1,7 @@
+1- ) open anaconda terminal.
+
+2- ) conda activate letterboxd_env
+
+3-) cd C:\Users\MSI-NB\OneDrive\Masaüstü\app_start
+
+4-) python app.py

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letterboxd Analiz</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">🎬 <span>Letterboxd</span></div>
+    <nav class="nav">
+      <a class="nav-item active" data-view="analyzer">
+        <span class="nav-icon">🔎</span> Analiz
+      </a>
+      <a class="nav-item" data-view="dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <span id="activeUser" class="active-user"></span>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="content">
+
+    <!-- ===== Analyzer View ===== -->
+    <section id="view-analyzer" class="view active">
+      <div class="topbar">
+        <h1>Diary Analyzer</h1>
+        <div class="search-box">
+          <input id="username" type="text" placeholder="Letterboxd kullanıcı adı" autocomplete="off" />
+          <button class="btn btn-primary" onclick="startScrape()">Getir</button>
+          <button id="refreshBtn" class="btn btn-ghost hidden" onclick="refreshData()">⟳ Yenile</button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div id="filterSection" class="card filter-section hidden">
+        <div class="filter-top">
+          <input id="searchInput" type="text" class="title-search" placeholder="🔍 Film adında ara..." oninput="onFilterChange()" />
+          <button class="btn btn-ghost" onclick="clearFilters()">Temizle</button>
+        </div>
+        <div id="facetBar" class="facet-bar">
+          <!-- facet dropdowns injected by JS -->
+        </div>
+        <div id="activeChips" class="active-chips"></div>
+      </div>
+
+      <!-- Results -->
+      <div id="tableContainer" class="card hidden">
+        <div class="table-toolbar">
+          <div class="result-count"><span id="resultCount">0</span> film</div>
+          <div class="page-size">
+            <label>Sayfa başına:</label>
+            <div class="seg" id="pageSizeSeg">
+              <button data-size="10">10</button>
+              <button data-size="20" class="active">20</button>
+              <button data-size="50">50</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="resultsTable">
+            <thead>
+              <tr>
+                <th data-key="date">Tarih</th>
+                <th data-key="title">Film</th>
+                <th data-key="rating">Puan</th>
+                <th data-key="director">Yönetmen</th>
+                <th data-key="studios">Stüdyo</th>
+                <th data-key="cast">Oyuncular</th>
+                <th data-key="genres">Tür</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-emoji">🍿</div>
+        <p>Başlamak için bir Letterboxd kullanıcı adı gir.</p>
+      </div>
+    </section>
+
+    <!-- ===== Dashboard View ===== -->
+    <section id="view-dashboard" class="view">
+      <div class="topbar">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="card dashboard-placeholder">
+        <div class="empty-emoji">📊</div>
+        <p>Veri görselleştirme yakında burada olacak.</p>
+        <span class="muted">JSON verisine göre grafikler ve istatistikler eklenecek.</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Progress Modal -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h2 id="statusText">Veriler alınıyor...</h2>
+    <p id="stageText"></p>
+    <div class="progress-bar">
+      <div id="progressFill"></div>
+    </div>
+    <p id="progressPercent">0%</p>
+    <button id="showBtn" class="btn btn-success hidden" onclick="showResults()">Verileri Gör</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

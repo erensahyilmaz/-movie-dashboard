@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(python -m pip install cloudscraper)",
+      "Bash(python -c \"import cloudscraper; print\\('ok'\\)\")",
+      "Bash(set PYTHONIOENCODING=utf-8)"
+    ]
+  }
+}
